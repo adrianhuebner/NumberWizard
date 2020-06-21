@@ -4,37 +4,42 @@ using UnityEngine;
 
 public class NumberWizard : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
+    int maxNumber = 1000;
+    int minimumNumber = 1;
+    int currentGuess = 500;
+
     void Start()
     {
-        int maxNumber = 1000;
-        int minimumNumber = 1;
-        int originalGuess = 500;
-
         // Debug.Log works the same as print, Debug gives a little more flexibility
-        Debug.Log("Welcome to Number Wizard!");
-        Debug.Log("Please pick a number...");
-        Debug.Log("The highest number that you can pick is: " + maxNumber);
-        Debug.Log("The smallest number that you can pick is: " + minimumNumber);
-        Debug.Log("Tell me if your guess is higher or lower than: " + originalGuess);
-        Debug.Log("Push Up = Higher, Push Down = Lower, Push Enter = Correct");
+        Debug.Log("Hello and welcome to Number Wizard!");
+        Debug.Log("Please pick any number between " + maxNumber + " and " + minimumNumber);
+        Debug.Log("Tell me if your guess is higher or lower than: " + currentGuess);
+        Debug.Log("Press the Up Arrow on your Keyboard if the number you are thinking of is higher \n Press the Down Arrow on your Keyboard if the number you are thinking of is lower \n Press the Enter/Return Key on your Keyboard if it is the number you are thinking of");
+
+        maxNumber = maxNumber + 1;
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
         // Got information on how to do this on Unity's Docs
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Debug.Log("Up Arrow was pressed");
+            minimumNumber = currentGuess;
+            currentGuess = ((maxNumber + minimumNumber) / 2);
+            Debug.Log("You need a higher number, here is our next guess: " + currentGuess);
+                
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Debug.Log("Down Arrow was pressed");
+            maxNumber = currentGuess;
+            currentGuess = ((maxNumber + minimumNumber) / 2);
+            Debug.Log("You need a lower number, here is our next guess: " + currentGuess);
         }
-        if(Input.GetKeyDown(KeyCode.Return))
+        else if(Input.GetKeyDown(KeyCode.Return))
         {
-            Debug.Log("We got the correct number!");
+            Debug.Log("We guessed the correct number!");
         }
     }
 }
